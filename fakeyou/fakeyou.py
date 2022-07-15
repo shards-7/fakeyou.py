@@ -10,18 +10,32 @@ its messy, i'll comment it later.
 
 class FakeYou():
 	
-	def __init__(self,proxies:dict=None,verbose:bool=False):
+	def __init__(self,verbose:bool=False):
 		self.v=verbose
 		self.baseurl="https://api.fakeyou.com/"
 		self.headers={"accept":"application/json","content-Type": "application/json"}
 		
 		self.session=requests.Session()
-		if proxies!=None:
-			self.session.proxies=proxies
+		
 		self.session.headers=self.headers
 		if self.v:
 			print("Session Ready...")
 	
+	def login(self,username,password):
+		ljson={"username_or_email":username,"password":password}
+		loginHandler=self.session.post(self.baseurl+"login",json=ljson)
+		lrjson=loginHandler.json()
+		if loginHandler.status_code == 200:
+			if lrjson["success"] == True:
+				sjson=self.session.get(self.baseurl+"session").json()
+				return login(sjson=sjson)
+				
+			elif lrjson["success"]==False and lrjson["error_type"]=="InvalidCredentials":
+				raise InvalidCredentials("check username or password")
+		elif loginHandler.status_code == 429:
+			raise TooManyRequests("Too many requests, try again later or use a proxy.")
+			
+			
 	def list_voices(self,size:int=25):
 		if self.v:
 			print("Getting voice list")
@@ -88,7 +102,7 @@ class FakeYou():
 		elif handler.status_code==429:
 			raise TooManyRequests("Too many requests, try again later or use a proxy.")
 	
-	def get_wav(self,ijt:str,filename:str="fakeyou.wav"):
+	def get_wav(self,ijt:str,cooldown:int,filename:str="fakeyou.wav"):
 		while True:
 			handler=self.session.get(url=self.baseurl+f"tts/job/{ijt}")
 			if handler.status_code==200:
@@ -100,6 +114,7 @@ class FakeYou():
 				if wavo.status=="started":
 					continue
 				elif "pending" in wavo.status:
+					time.sleep(cooldown)
 					continue
 				elif "attempt_failed" in wavo.status:
 					raise TtsAttemptFailed("check token and text, or contact the developer IG:@thedemonicat")
@@ -112,11 +127,27 @@ class FakeYou():
 			elif handler.status_code==429:
 				raise TooManyRequests("Too many requests, try again later or use a proxy.")
 	
-	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
+	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
 		ijt=self.generate_ijt(text=text,ttsModelToken=ttsModelToken,filename=filename)
-		return self.get_wav(ijt)
+		return self.get_wav(ijt,cooldown=cooldown)
 	
+	def get_tts_leaderboard(self):
+		handler=self.session.get(self.baseurl+"leaderboard")
+		if handler.status_code == 200:
+			ljson=handler.json()
+			return ttsleaderboard(ljson)
+		if handler.status_code==429:raise TooManyRequests("Too many requests, try again later or use a proxy.")
 	
+	def get_w2l_leaderboard(self):
+		handler=self.session.get(self.baseurl+"leaderboard")
+		if handler.status_code == 200:
+			ljson=handler.json()
+			return w2lleaderboard(ljson)
+		if handler.status_code==429:raise TooManyRequests("Too many requests, try again later or use a proxy.")
 	
-	
-	
+	def get_last_events(self):
+		handler=self.session.get(self.baseurl+"events")
+		if handler.status_code == 200:
+			ejson=handler.json()
+			return events(ejson)
+		if handler.status_code==429:raise TooManyRequests("Too many requests, try again later or use a proxy.")

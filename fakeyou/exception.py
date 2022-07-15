@@ -1,4 +1,4 @@
-#class changeme(Exception):
+#class InvalidCredentials(Exception):
 #    def __init__(*args, **kwargs):
 #        Exception.__init__(*args, **kwargs)
 
@@ -12,3 +12,8 @@ class RequestError(Exception):
 class TtsAttemptFailed(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__(*args, **kwargs)
+
+class InvalidCredentials(Exception):
+    def __init__(*args, **kwargs):
+        Exception.__init__(*args, **kwargs)
+

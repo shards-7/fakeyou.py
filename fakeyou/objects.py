@@ -1,4 +1,6 @@
 
+
+
 class list_voice():
 	def __init__(self,json:dict,size):
 		voicels=json["models"]
@@ -113,3 +115,98 @@ class search():
 	def __init__(self,vjson,cjson):
 		self.voices=list_voice(json=vjson,size=0)
 		self.categories=categories(json=cjson,size=0)
+
+class login():
+	
+	def __init__(self,sjson:dict):
+		json=sjson["user"]
+		
+		self.json=json
+		self.userToken=json["user_token"]
+		self.username=json["username"]
+		self.displayName=json['display_name']
+		self.emailGravatarHash=json['email_gravatar_hash']
+		self.plan=json['fakeyou_plan']
+		self.canUseTTS=json['can_use_tts']
+		self.canUseW2l=json['can_use_w2l']
+		self.canDeleteOwnTtsResults=json['can_delete_own_tts_results']
+		self.canDeleteOwnW2lResults=json['can_delete_own_w2l_results']
+		self.canDeleteOwnAccount=json['can_delete_own_account']
+		self.canUploadTtsModel=json['can_upload_tts_models']
+		self.canUploadW2lTemp=json['can_upload_w2l_templates']
+		self.canDeleteOwnTtsModels=json['can_delete_own_tts_models']
+		self.canDeleteOwnW2lTemp=json['can_delete_own_w2l_templates']
+		self.canApproveW2lTemp=json['can_approve_w2l_templates']
+		self.canEditOtherUsersProfiles=json['can_edit_other_users_profiles']
+		self.canEditUsersTts=json['can_edit_other_users_tts_models']
+		self.canEditUsersW2l=json['can_edit_other_users_w2l_models']
+		self.canDeleteUsersTts=json['can_delete_other_users_tts_models']
+		self.canDeleteUsersTtsResults=json['can_delete_other_users_tts_results']
+		self.canDeleteUsersW2lTemp=json['can_delete_other_users_w2l_templates']
+		self.canBanUsers=json['can_ban_users']
+		self.canDeleteUsers=['can_delete_users']
+		
+
+
+class ttsleaderboard():
+	
+	def __init__(self,ljson):
+		ls=ljson['tts_leaderboard']
+		self.json=[]
+		self.username=[]
+		self.displayName=[]
+		self.gravatarHash=[]
+		self.userToken=[]
+		self.uploadedCount=[]
+		
+		for json in ls:
+			self.json.append(json)
+			self.username.append(json['username'])
+			self.displayName.append(json['display_name'])
+			self.gravatarHash.append(json["gravatar_hash"])
+			self.userToken.append(json["creator_user_token"])
+			self.uploadedCount.append(json["uploaded_count"])
+
+class w2lleaderboard():
+	
+	def __init__(self,ljson):
+		ls=ljson['w2l_leaderboard']
+		self.json=[]
+		self.username=[]
+		self.displayName=[]
+		self.gravatarHash=[]
+		self.userToken=[]
+		self.uploadedCount=[]
+		
+		for json in ls:
+			self.json.append(json)
+			self.username.append(json['username'])
+			self.displayName.append(json['display_name'])
+			self.gravatarHash.append(json["gravatar_hash"])
+			self.userToken.append(json["creator_user_token"])
+			self.uploadedCount.append(json["uploaded_count"])
+
+class events():
+	
+	def __init__(self,ejson):
+		ls=ejson["events"]
+		self.json=[]
+		self.eventType=[]
+		self.maybeUserToken=[]
+		self.maybeUsername=[]
+		self.maybeDisplayName=[]
+		self.maybeGavatarHash=[]
+		self.maybeEntityToken=[]
+		self.created=[]
+		self.updated=[]
+		
+		for json in ls:
+			self.json.append(json)
+			self.eventType.append(json['event_type'])
+			self.maybeUserToken.append(json["maybe_target_user_token"])
+			self.maybeUsername.append(json['maybe_target_username'])
+			self.maybeDisplayName.append(json["maybe_target_display_name"])
+			self.maybeGavatarHash.append(json["maybe_target_user_gravatar_hash"])
+			self.maybeEntityToken.append(json["maybe_target_entity_token"])
+			self.created.append(json["created_at"])
+			self.updated.append(json["updated_at"])
