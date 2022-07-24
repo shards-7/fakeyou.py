@@ -139,7 +139,7 @@ class login():
 		self.canApproveW2lTemp=json['can_approve_w2l_templates']
 		self.canEditOtherUsersProfiles=json['can_edit_other_users_profiles']
 		self.canEditUsersTts=json['can_edit_other_users_tts_models']
-		self.canEditUsersW2l=json['can_edit_other_users_w2l_models']
+		self.canEditUsersW2l=json['can_edit_other_users_w2l_templates']
 		self.canDeleteUsersTts=json['can_delete_other_users_tts_models']
 		self.canDeleteUsersTtsResults=json['can_delete_other_users_tts_results']
 		self.canDeleteUsersW2lTemp=json['can_delete_other_users_w2l_templates']

@@ -1,6 +1,10 @@
 # FakeYou.py
-# Author IG : @thedemonicat
-**FakeYou.py** is a Python module that helps you to use [FakeYou](https://fakeyou.com/) API
+## Author contact(disocrd) : thedemonicat#9335
+
+[Come visit us on our discord](https://discord.gg/H72KFXm)
+
+
+**FakeYou.py** is the offical Python library that helps you to use [FakeYou](https://fakeyou.com/) API
 with simple functions and some featuers.
 
 
@@ -21,6 +25,8 @@ import fakeyou
 
 fy=fakeyou.FakeYou(verbose=False)
 ```
+
+for asynchronous call fakeyou.AsyncFakeYou instead, take a look on examples folder
 
 ### login
 You don't have to request anonymously anymore
