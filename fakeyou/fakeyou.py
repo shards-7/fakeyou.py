@@ -129,7 +129,7 @@ class FakeYou():
 	
 	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
 		ijt=self.generate_ijt(text=text,ttsModelToken=ttsModelToken,filename=filename)
-		return self.get_wav(ijt,cooldown=cooldown)
+		return self.get_wav(ijt,cooldown=cooldown, filename=filename)
 	
 	def get_tts_leaderboard(self):
 		handler=self.session.get(self.baseurl+"leaderboard")
