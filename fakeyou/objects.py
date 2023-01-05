@@ -1,6 +1,10 @@
 
+"""
+Objects to return data in a dynmic way, no i won't explain it all
+and no comments should be here
 
-
+its just objects
+"""
 class list_voice():
 	def __init__(self,json:dict,size):
 		voicels=json["models"]
@@ -100,16 +104,26 @@ class categories():
 
 class wav():
 	
-	def __init__(self,hjson):
+	def __init__(self,hjson,content=None):
 		json=hjson["state"]
 		self.json=json
 		self.jobToken=json["job_token"]
 		self.status=json["status"]
 		self.resultToken=json["maybe_result_token"]
-		self.maybePublicWavPath=json["maybe_public_bucket_wav_audio_path"]
+		self.link=self.link="https://storage.googleapis.com/vocodes-public"+str(json["maybe_public_bucket_wav_audio_path"])
 		self.title=json["title"]
 		self.text=json["raw_inference_text"]
-
+		if content:
+			self.content=content
+	
+	def save(self,path=None):
+		if path==None:
+			name=self.link.split("/").pop()
+			with open(name,"wb") as f:
+				f.write(self.content)
+		else:
+			with open(path, "wb") as f:
+				f.write(self.content)
 class search():
 	
 	def __init__(self,vjson,cjson):
@@ -210,3 +224,214 @@ class events():
 			self.maybeEntityToken.append(json["maybe_target_entity_token"])
 			self.created.append(json["created_at"])
 			self.updated.append(json["updated_at"])
+
+class _tts_results():
+	def __init__(self,ttsJson):
+		self.json=ttsJson["results"]
+		self.ttsResultToken=[]
+		self.ttsModelToken=[]
+		self.ttsModelTitle=[]
+		self.text=[]
+		self.maybeCreatorUserToken=[]
+		self.maybeCreatorUsername=[]
+		self.maybeCreatorName=[]
+		self.maybeCreatorResultId=[]
+		self.fileSize=[]
+		self.duration=[]
+		self.visibility=[]
+		self.created_date=[]
+		self.update_date=[]
+		for data in self.json:
+			self.ttsResultToken.append(data["tts_result_token"])
+			self.ttsModelToken.append(data["tts_model_token"])
+			self.ttsModelTitle.append(data["tts_model_title"])
+			self.text.append(data["raw_inference_text"])
+			self.maybeCreatorUserToken.append(data["maybe_creator_user_token"])
+			self.maybeCreatorUsername.append(data["maybe_creator_username"])
+			self.maybeCreatorName.append(data["maybe_creator_display_name"])
+			self.maybeCreatorResultId.append(data["maybe_creator_result_id"])
+			self.fileSize.append(data["file_size_bytes"])
+			self.duration.append(data["duration_millis"])
+			self.visibility.append(data["visibility"])
+			self.created_date.append(data["updated_at"])
+
+class _w2l_results():
+	def __init__(self,w2lJson):
+		self.json=w2lJson["results"]
+		self.w2lResultToken=[]
+		self.maybeW2lTemplateToken=[]
+		self.maybeTtsInferenceResultToken=[]
+		self.templateType=[]
+		self.templateTitle=[]
+		self.maybeCreatorUserToken=[]
+		self.maybeCreatorUsername=[]
+		self.maybeCreatorName=[]
+		self.maybeCreatorResultId=[]
+		self.fileSize=[]
+		self.width=[]
+		self.height=[]
+		self.duration=[]
+		self.visibility=[]
+		self.created_date=[]
+		self.update_date=[]
+		
+		for data in self.json:
+			self.w2lResultToken.append(data["w2l_result_token"])
+			self.maybeW2lTemplateToken.append(data["maybe_w2l_template_token"])
+			self.maybeTtsInferenceResultToken.append(data["maybe_tts_inference_result_token"])
+			self.templateType.append(data["template_type"])
+			self.templateTitle.append(data["template_title"])
+			self.maybeCreatorUserToken.append(data["maybe_creator_user_token"])
+			self.maybeCreatorUsername.append(data["maybe_creator_username"])
+			self.maybeCreatorName.append(data["maybe_creator_display_name"])
+			self.maybeCreatorResultId.append(data["maybe_creator_result_id"])
+			self.fileSize.append(data["file_size_bytes"])
+			self.width.append(data["frame_width"])
+			self.height.append(data["frame_height"])
+			self.duration.append(data["duration_millis"])
+			self.visibility.append(data["visibility"])
+			self.created_date.append(data["created_at"])
+			self.update_date.append(data["updated_at"])
+
+class _tts_models():
+	def __init__(self,modelsJson):
+		self.json=modelsJson["models"]
+		self.modelToken=[]
+		self.ttsModelType=[]
+		self.title=[]
+		self.ietfLanguageTag=[]
+		self.ietfPrimaryLanguagTag=[]
+		self.creatorUserToken=[]
+		self.creatorUsername=[]
+		self.creatorName=[]
+		self.gravatarHash=[]
+		self.isLockedFromUse=[]
+		self.isFrontPageFeatured=[]
+		self.isTwitchFeatured=[]
+		self.suggestedUniqeBotCommand=[]
+		self.created_date=[]
+		self.update_date=[]
+		
+		for data in self.json:
+			self.modelToken.append(data["model_token"])
+			self.ttsModelType.append(data["tts_model_type"])
+			self.title.append(data["title"])
+			self.ietfLanguageTag.append(data["ietf_language_tag"])
+			self.ietfPrimaryLanguagTag.append(data["ietf_primary_language_subtag"])
+			self.creatorUserToken.append(data["creator_user_token"])
+			self.creatorUsername.append(data["creator_username"])
+			self.creatorName.append(data["creator_display_name"])
+			self.gravatarHash.append(data["creator_gravatar_hash"])
+			self.isLockedFromUse.append(data["is_locked_from_use"])
+			self.isFrontPageFeatured.append(data["is_front_page_featured":])
+			self.isTwitchFeatured.append(data["is_twitch_featured"])
+			self.suggestedUniqeBotCommand.append(data["maybe_suggested_unique_bot_command"])
+			self.created_date.append(data["created_at"])
+			self.update_date.append(data["updated_at"])
+class _w2l_templates():
+	def __init__(self,tempJson):
+		self.json=tempJson["templates"]
+		self.templateToken=[]
+		self.templateType=[]
+		self.creatorUserToken=[]
+		self.creatorUsername=[]
+		self.creatorName=[]
+		self.title=[]
+		self.width=[]
+		self.height=[]
+		self.duration=[]
+		self.previewUrl=[]
+		self.isPublicListingApproved=[]
+		self.created_date=[]
+		self.updated_date=[]
+		
+		for data in self.json:
+			self.templateToken.append(data["template_token"])
+			self.templateType.append(data["template_type"])
+			self.creatorUserToken.append(data["creator_user_token"])
+			self.creatorUsername.append(data["creator_username"])
+			self.creatorName.append(data["creator_username"])
+			self.title.append(data["title"])
+			self.width.append(data["frame_width"])
+			self.height.append(data["frame_height"])
+			self.duration.append(data["duration_millis"])
+			if data["maybe_image_object_name"]:
+				self.previewUrl.append("https://storage.googleapis.com/vocodes-public"+str(data["maybe_image_object_name"]))
+			elif data["maybe_video_object_name"]:
+				self.previewUrl.append("https://storage.googleapis.com/vocodes-public"+data["maybe_video_object_name"])
+			self.isPublicListingApproved.append(data["is_public_listing_approved"])
+			self.created_date.append(data["created_at"])
+			self.updated_date.append(data["updated_at"])
+class _badges():
+	def __init__(self,badgList):
+		
+		self.json=badgList
+		self.slug=[]
+		self.title=[]
+		self.description=[]
+		self.imageUrl=[]
+		self.grantedAt=[]
+		
+		for data in self.json:
+			self.slug.append(data["slug"])
+			self.title.append(data["title"])
+			self.description.append(data["description"])
+			self.imageUrl.append(data["image_url"])
+			self.grantedAt.append(data["granted_at"])
+class _user():
+	def __init__(self,userJson):
+		self.json=userJson
+		self.userToken=userJson["user_token"]
+		self.username=userJson["username"]
+		self.name=userJson["display_name"]
+		self.gravatarHash=userJson["email_gravatar_hash"]
+		self.profileMarkdown=userJson["profile_markdown"]
+		self.role=userJson["user_role_slug"]
+		self.is_gravatar_disabled=userJson["disable_gravatar"]
+		self.preferredTtsVisibiltiy=userJson["preferred_tts_result_visibility"]
+		self.preferredW2lVisibiltiy=userJson["preferred_w2l_result_visibility"]
+		self.discordUsername=userJson["discord_username"]
+		self.twitchUsername=userJson["twitch_username"]
+		self.twitterUsername=userJson["twitter_username"]
+		self.patreonUsername=userJson["patreon_username"]
+		self.githubUsername=userJson["github_username"]
+		self.cashappUsername=userJson["cashapp_username"]
+		self.url=userJson["website_url"]
+		self.created_at=userJson["created_at"]
+class profileo():
+	
+	def __init__(self,profile_json,w2l_temps_json,tts_models_json,tts_result_json,w2l_result_json):
+		self.w2lTemplates=_w2l_templates(w2l_temps_json)
+		self.ttsModels=_tts_models(tts_models_json)
+		self.ttsResults=_tts_results(tts_result_json)
+		self.w2lResults=_w2l_results(w2l_result_json)
+		self.badges=_badges(profile_json["user"]["badges"])
+		
+		self.json=profile_json
+		self.user=_user(profile_json["user"])
+
+class w2lo():
+	
+	def __init__(self,stateJson,content):
+	
+		ij=stateJson["state"]
+		self.jobToken=ij["job_token"]
+		self.status=ij["status"]
+		self.maybeStatusDescription=ij["maybe_extra_status_description"]
+		self.attemptCount=ij["attempt_count"]
+		self.resultToken=ij["maybe_result_token"]
+		self.link="https://storage.googleapis.com/vocodes-public"+str(ij["maybe_public_bucket_video_path"])
+		self.maybeW2lTemplateToken=ij["maybe_w2l_template_token"]
+		self.w2lTemplateType=ij["w2l_template_type"]
+		self.title=ij["title"]
+		self.created_date=ij["created_at"]
+		self.content=content
+	
+	def save(self,path=None):
+		if path==None:
+			name=self.link.split("/").pop()
+			with open(name,"wb") as f:
+				f.write(self.content)
+		else:
+			with open(path, "wb") as f:
+				f.write(self.content)
