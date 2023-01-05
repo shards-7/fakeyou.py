@@ -140,7 +140,7 @@ class FakeYou():
 		
 		return search(vjson=vjson,cjson=cjson)
 		
-	def make_tts_job(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
+	def make_tts_job(self,text:str,ttsModelToken:str):
 		
 			
 		payload={"uuid_idempotency_token":str(uuid4()),"tts_model_token":ttsModelToken,"inference_text":text}
@@ -175,8 +175,8 @@ class FakeYou():
 			elif handler.status_code==429:
 				raise TooManyRequests()
 	
-	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
-		ijt=self.make_tts_job(text=text,ttsModelToken=ttsModelToken,filename=filename)
+	def say(self,text:str,ttsModelToken:str,cooldown:int=3):
+		ijt=self.make_tts_job(text=text,ttsModelToken=ttsModelToken)
 		return self.tts_poll(ijt,cooldown=cooldown)
 	
 	def tts_status(self,ijt:str):
