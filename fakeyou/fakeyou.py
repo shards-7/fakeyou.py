@@ -175,6 +175,7 @@ class FakeYou():
 			elif handler.status_code==429:
 				raise TooManyRequests()
 	
+<<<<<<< HEAD
 	def say(self,text:str,ttsModelToken:str,cooldown:int=3):
 		ijt=self.make_tts_job(text=text,ttsModelToken=ttsModelToken)
 		return self.tts_poll(ijt,cooldown=cooldown)
@@ -186,6 +187,11 @@ class FakeYou():
 			return hjson["state"]["status"]
 		else:
 			raise RequestError("Something went wrong, content:",handler.content)
+=======
+	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
+		ijt=self.generate_ijt(text=text,ttsModelToken=ttsModelToken,filename=filename)
+		return self.get_wav(ijt,cooldown=cooldown, filename=filename)
+>>>>>>> 7a04fa1269750b2bf0b83ad7937c0f75e26a3ee4
 	
 	def get_tts_leaderboard(self):
 		handler=self.session.get(self.baseurl+"leaderboard")

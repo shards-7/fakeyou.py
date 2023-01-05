@@ -7,7 +7,11 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
+<<<<<<< HEAD
 VERSION = '2.0.0'
+=======
+VERSION = '1.1.1'
+>>>>>>> 7a04fa1269750b2bf0b83ad7937c0f75e26a3ee4
 DESCRIPTION = 'Enhanced FAKEYOU.COM API lib'
 LONG_DESCRIPTION = 'None'
 
