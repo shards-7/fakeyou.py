@@ -7,7 +7,7 @@ from uuid import uuid4
 from .objects import *
 from .exception import *
 """
-Hey devs, i know you're looking throug the code
+Hey devs, i know you're looking through the code
 its messy, i'll comment it later.
 """
 

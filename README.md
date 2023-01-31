@@ -1,23 +1,23 @@
 # FakeYou.py
-## Author contact(disocrd) : thedemonicat#9335
+## Author contact(discord) : thedemonicat#9335
 
 [Come visit us on our discord](https://discord.gg/H72KFXm)
 
 
 **FakeYou.py** is the offical Python library that helps you to use [FakeYou](https://fakeyou.com/) API
-with simple functions and some featuers.
+with simple functions and some features.
 
 
 ## Documentation!
 
-i'll explian every **function** and **Error handling** thing you need so you have as smooth as possible programs with it!
+I'll explain every **function** and **Error handling** thing you need so you have as smooth as possible programs with it!
 
 Let's Start!
 
 ### Calling the main class:
-The main class have 1 arguments
+The main class has 1 argument
 
-- verbose : type = bool, set it True to make the program more talktiv, default is **False**
+- verbose : type = bool, set it True to make the program more talkative, default is **False**
 
 - Proxy is no longer supported
 ```
@@ -38,7 +38,7 @@ fy=fakeyou.FakeYou()
 fy.login(user,password)
 
 ```
-if successfuly loged in, it will return session data, otherwise it will raise `InvalidCredentials` Error
+if successfuly logged in, it will return session data; otherwise it will raise `InvalidCredentials` Error
 
 example script:
 ```
@@ -56,7 +56,7 @@ except fakeyou.exception.InvalidCredentials:
 
 ### get all the categories/voices:
 
-it have one argument and that is **size**, it decides how much it should return, when its setted to 0, it will return everything, default= **25**
+it has one argument and that is **size**, it decides how much it should return, when it's set to 0, it will return everything, default= **25**
 
 ```
 import fakeyou 
@@ -67,7 +67,7 @@ voices=fy.list_voices(size=100)
 ```
 
 
-`FakeYou().list_voices()` returns 13 diffrent list, you can handle it with zip, example:
+`FakeYou().list_voices()` returns 13 diffrent lists, you can handle it with zip, example:
 ```
 import fakeyou
 
@@ -96,7 +96,7 @@ and here's the lists:
 - json
 
 
-and goes the same for categories:
+and it goes the same for categories:
 ```
 import fakeyou
 
@@ -125,7 +125,7 @@ and here's categories lists:
 
 
 ### search function
-it have one argument, and its query, you just put what you want to search
+it has one argument, and it's query, you just put what you want to search
 ```
 import fakeyou
 
@@ -145,7 +145,7 @@ function **search** returns 2 objects, voices and categories
 ### say function
 
 this is a function that generates TTS in a specfic voice model 
-it have 3 args, ttsModelToken, text, and filename
+it has 3 args: ttsModelToken, text, and filename
 
 - text : is the text to convert to speech
 - ttsModelToken : voice model token
@@ -164,7 +164,7 @@ fy.say(text="Hello im mario",ttsModelToken="TM:7wbtjphx8h8v")
 
 ## Error handling
 
-there's only 4 errors
+there are only 4 errors
 
 - TooManyRequests
 - RequestError
