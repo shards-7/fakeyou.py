@@ -4,46 +4,46 @@
 
 class TooManyRequests(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Too many requests, try again later.")
+        Exception.__init__(*args,"Too many requests, try again later.")
 
 class PathNullError(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("FakeYou.com returned a null path")
-
+        Exception.__init__(*args, "FakeYou.com returned a null path", **kwargs)
 
 class RequestError(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__(*args, **kwargs)
+
 class Failed(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("check token and text/file, or try again")
+        Exception.__init__(*args,"check token and text/file, or try again")
 
 class InvalidCredentials(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("check username or password")
+        Exception.__init__(*args,"check username or password")
 
 class UserNotFound(Exception):
     def __init__(self,username):
-        Exception.__init__(f"The user {username} not found")
+        Exception.__init__(*args,f"The user {username} not found")
 
 
 class UsernameTooShort(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Username too short")
+        Exception.__init__(*args,"Username too short")
 
 class UsernameTaken(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Username taken")
+        Exception.__init__(*args,"Username taken")
 class EmailTaken(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Email taken")
+        Exception.__init__(*args,"Email taken")
 class W2lTemplateTokenWrong(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Wrong w2l template token")
+        Exception.__init__(*args,"Wrong w2l template token")
 
 class PasswordTooShort(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("Password too short")
+        Exception.__init__(*args,"Password too short")
 
 class UnAuthorized(Exception):
     def __init__(*args, **kwargs):
@@ -55,4 +55,4 @@ class TtsResultNotFound(Exception):
 
 class EmailInvalid(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("invalid email format")
+        Exception.__init__(*args,"invalid email format")
