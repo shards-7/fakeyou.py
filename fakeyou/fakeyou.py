@@ -163,12 +163,14 @@ class FakeYou():
 					
 				if wavo.status=="started":
 					continue
-				elif "pending" in wavo.status:
+				elif "pending" == wavo.status:
 					time.sleep(cooldown)
 					continue
-				elif "attempt_failed" in wavo.status:
+				elif "attempt_failed" == wavo.status:
 					raise Failed()
-				elif "complete_success":
+				elif "dead" == wavo.status:
+					raise Dead()
+				elif "complete_success" == wavo.status:
 					if wavo.link!=None:
 						content=self.session.get(wavo.link).content
 					else:
