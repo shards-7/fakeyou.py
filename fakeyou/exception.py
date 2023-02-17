@@ -6,12 +6,17 @@ class TooManyRequests(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__("Too many requests, try again later.")
 
+class PathNullError(Exception):
+    def __init__(*args, **kwargs):
+        Exception.__init__("FakeYou.com returned a null path")
+
+
 class RequestError(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__(*args, **kwargs)
-class TtsAttemptFailed(Exception):
+class Failed(Exception):
     def __init__(*args, **kwargs):
-        Exception.__init__("check token and text, or try again")
+        Exception.__init__("check token and text/file, or try again")
 
 class InvalidCredentials(Exception):
     def __init__(*args, **kwargs):

@@ -110,7 +110,10 @@ class wav():
 		self.jobToken=json["job_token"]
 		self.status=json["status"]
 		self.resultToken=json["maybe_result_token"]
-		self.link=self.link="https://storage.googleapis.com/vocodes-public"+str(json["maybe_public_bucket_wav_audio_path"])
+		if json["maybe_public_bucket_wav_audio_path"] != None:
+			self.link=self.link="https://storage.googleapis.com/vocodes-public"+str(json["maybe_public_bucket_wav_audio_path"])
+		else:
+			self.link=None
 		self.title=json["title"]
 		self.text=json["raw_inference_text"]
 		if content:

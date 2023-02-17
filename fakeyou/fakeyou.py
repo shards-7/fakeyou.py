@@ -167,15 +167,18 @@ class FakeYou():
 					time.sleep(cooldown)
 					continue
 				elif "attempt_failed" in wavo.status:
-					raise TtsAttemptFailed()
+					raise Failed()
 				elif "complete_success":
-					content=self.session.get(wavo.link).content
+					if wavo.link!=None:
+						content=self.session.get(wavo.link).content
+					else:
+						raise PathNullError()
 					
 					return wav(hjson,content)
 			elif handler.status_code==429:
 				raise TooManyRequests()
 	
-<<<<<<< HEAD
+
 	def say(self,text:str,ttsModelToken:str,cooldown:int=3):
 		ijt=self.make_tts_job(text=text,ttsModelToken=ttsModelToken)
 		return self.tts_poll(ijt,cooldown=cooldown)
@@ -187,12 +190,7 @@ class FakeYou():
 			return hjson["state"]["status"]
 		else:
 			raise RequestError("Something went wrong, content:",handler.content)
-=======
-	def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
-		ijt=self.generate_ijt(text=text,ttsModelToken=ttsModelToken,filename=filename)
-		return self.get_wav(ijt,cooldown=cooldown, filename=filename)
->>>>>>> 7a04fa1269750b2bf0b83ad7937c0f75e26a3ee4
-	
+
 	def get_tts_leaderboard(self):
 		handler=self.session.get(self.baseurl+"leaderboard")
 		if handler.status_code == 200:
@@ -281,8 +279,10 @@ class FakeYou():
 			"audio":(name,file.read(),"audio/mpeg")
 		}
 			handler=self.session.post(url="https://api.fakeyou.com/w2l/inference",files=form)
+			print("Done, sent")
 			try:
 				w2lJson=handler.json()
+				print(w2lJson)
 			except:
 				raise RequestError("Please try again later")
 			
@@ -294,10 +294,13 @@ class FakeYou():
 				raise TooManyRequests()
 			
 			elif handler.status_code==200:
+				print("return")
 				return w2lJson["inference_job_token"]
 	def w2l_poll(self,ijt:str):
 		while True:
+			
 			polling_handler=self.session.get(f"https://api.fakeyou.com/w2l/job/{ijt}")
+			
 			if polling_handler.status_code==200:
 				try:pjs=polling_handler.json()
 				except:raise RequestError("Something went wrong.","REQUEST CONTENT:",polling_handler.content)
@@ -309,6 +312,8 @@ class FakeYou():
 					continue
 				if state == "pending":
 					continue
+				if state == "dead" or state=="attempt_failed":
+					raise Failed()
 	
 	def w2l(self,file:open,template_token:str) :
 		ijt=self.make_w2l_job(file,template_token)
