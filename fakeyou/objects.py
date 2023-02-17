@@ -1,4 +1,4 @@
-
+import datetime
 """
 Objects to return data in a dynmic way, no i won't explain it all
 and no comments should be here
@@ -121,11 +121,11 @@ class wav():
 	
 	def save(self,path=None):
 		if path==None:
-			name=self.link.split("/").pop()
-			with open(name,"wb") as f:
+			
+			with open(path,"wb") as f:
 				f.write(self.content)
 		else:
-			with open(path, "wb") as f:
+			with open("fakeyou_{title}_{datetime.now().strftime('%Y/%M/%d %X')}.wav", "wb") as f:
 				f.write(self.content)
 class search():
 	
