@@ -8,7 +8,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
 
-VERSION = '1.1.1'
+VERSION = '1.1.3'
 
 DESCRIPTION = 'Enhanced FAKEYOU.COM API lib'
 LONG_DESCRIPTION = 'None'
