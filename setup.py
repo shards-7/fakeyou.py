@@ -26,7 +26,7 @@ setup(
     install_requires=['requests','aiohttp'],
     keywords=['fakeyou','fakeyou.py','fakeyou api','rappers voice','sing AI','text to speech','text to singing','text to song','lyrics to song','tts'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
         "Programming Language :: Python :: 3",
         "Operating System :: Unix",

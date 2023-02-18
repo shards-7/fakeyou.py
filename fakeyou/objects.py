@@ -1,4 +1,4 @@
-import datetime
+from uuid import uuid4
 """
 Objects to return data in a dynmic way, no i won't explain it all
 and no comments should be here
@@ -125,7 +125,7 @@ class wav():
 			with open(path,"wb") as f:
 				f.write(self.content)
 		else:
-			with open(f"fakeyou_{self.title}_{datetime.datetime.now().strftime('%Y-%M-%d %X')}.wav", "wb") as f:
+			with open(f"fakeyou_{self.title}_{str(uuid4)}.wav", "wb") as f:
 				f.write(bytes(self.content,"utf-8"))
 
 class login():

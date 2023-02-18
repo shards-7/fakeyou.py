@@ -88,7 +88,7 @@ class AsyncFakeYou():
 		return list_voice(json=found,size=0)
 	
 	
-	async def generate_ijt(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
+	async def make_tts_job(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
 		if self.v:
 			print("getting job token")
 		payload={"uuid_idempotency_token":str(uuid4()),"tts_model_token":ttsModelToken,"inference_text":text}
@@ -103,7 +103,7 @@ class AsyncFakeYou():
 			elif handler.status==429:
 				raise TooManyRequests("Too many requests, try again later or use a proxy.")
 	
-	async def get_wav(self,ijt:str,cooldown:int,filename:str="fakeyou.wav"):
+	async def tts_poll(self,ijt:str):
 		while True:
 			async with self.session.get(url=self.baseurl+f"tts/job/{ijt}") as handler:
 				if handler.status==200:
@@ -115,7 +115,6 @@ class AsyncFakeYou():
 					if wavo.status=="started":
 						continue
 					elif "pending" == wavo.status:
-						time.sleep(cooldown)
 						continue
 					elif "attempt_failed" == wavo.status:
 						raise Failed()
@@ -124,19 +123,20 @@ class AsyncFakeYou():
 						raise Dead()
 					
 					elif "complete_success" == wavo.status:
-						async with self.session.get(wavo.link) as rcontent:
-							with open(filename,"wb") as wavfile:
-								content = await rcontent.read()
-								wavfile.write(content)
-								wavfile.close()
-								content=None
-						return wav
+						if wavo.link != None:
+							async with self.session.get(wavo.link) as rcontent:
+								del wavo
+								#for RAM
+								
+								return wav(hjson,rcontent)
+						else:
+							raise PathNullError()
 				elif handler.status==429:
 					raise TooManyRequests("Too many requests, try again later")
 	
-	async def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav",cooldown:int=3):
-		ijt=await self.generate_ijt(text=text,ttsModelToken=ttsModelToken,filename=filename)
-		return await self.get_wav(ijt,cooldown=cooldown)
+	async def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
+		ijt=await self.make_tts_job(text=text,ttsModelToken=ttsModelToken,filename=filename)
+		return await self.tts_poll(ijt)
 	
 	async def get_tts_leaderboard(self):
 		async with self.session.get(self.baseurl+"leaderboard") as handler:

@@ -133,7 +133,7 @@ class FakeYou():
 		elif handler.status_code==429:
 			raise TooManyRequests()
 	
-	def tts_poll(self,ijt:str,cooldown:int):
+	def tts_poll(self,ijt:str):
 		while True:
 			handler=self.session.get(url=self.baseurl+f"tts/job/{ijt}")
 			if handler.status_code==200:
@@ -144,7 +144,7 @@ class FakeYou():
 				if wavo.status=="started":
 					continue
 				elif "pending" == wavo.status:
-					time.sleep(cooldown)
+					
 					continue
 				elif "attempt_failed" == wavo.status:
 					raise Failed()
@@ -153,17 +153,20 @@ class FakeYou():
 				elif "complete_success" == wavo.status:
 					if wavo.link!=None:
 						content=self.session.get(wavo.link).content
+						del wavo
+						#for RAM
+						return wav(hjson,content)
 					else:
 						raise PathNullError()
 					
-					return wav(hjson,content)
+					
 			elif handler.status_code==429:
 				raise TooManyRequests()
 	
 
-	def say(self,text:str,ttsModelToken:str,cooldown:int=3):
-		ijt=self.make_tts_job(text=text,ttsModelToken=ttsModelToken)
-		return self.tts_poll(ijt,cooldown=cooldown)
+	def say(self,text:str,ttsModelToken:str):
+		
+		return self.tts_poll(self.make_tts_job(text=text,ttsModelToken=ttsModelToken))
 	
 	def tts_status(self,ijt:str):
 		handler=self.session.get(url=self.baseurl+f"tts/job/{ijt}")
