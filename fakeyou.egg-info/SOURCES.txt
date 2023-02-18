@@ -1,0 +1,13 @@
+LICENSE
+README.md
+setup.py
+fakeyou/__init__.py
+fakeyou/asynchronous_fakeyou.py
+fakeyou/exception.py
+fakeyou/fakeyou.py
+fakeyou/objects.py
+fakeyou.egg-info/PKG-INFO
+fakeyou.egg-info/SOURCES.txt
+fakeyou.egg-info/dependency_links.txt
+fakeyou.egg-info/requires.txt
+fakeyou.egg-info/top_level.txt
