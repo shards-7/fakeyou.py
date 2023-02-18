@@ -126,9 +126,11 @@ class wav():
 				f.write(self.content)
 				f.close()
 		else:
-			with open(f"fakeyou_{self.title}_{str(uuid4)}.wav", "wb") as f:
+			file_name=f"fakeyou_{self.title}_{str(uuid4()).replace('-','_')}.wav"
+			with open(f"", "wb") as f:
 				f.write(bytes(self.content,"utf-8"))
 				f.close()
+			return file_name
 
 class login():
 	
