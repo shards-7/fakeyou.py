@@ -87,24 +87,7 @@ class AsyncFakeYou():
 		
 		return list_voice(json=found,size=0)
 	
-	async def search(self,query:str):
-		cjson={"categories":[]}
-		vjson={"models":[]}
-		found_voices=vjson["models"]
-		found_categories=cjson["categories"]
-		voices= await self.list_voices(size=0)
-		categories= await self.list_voice_categories(size=0)
-		
-		for categoryName,categoryJson in zip(categories.name,categories.json):
-			if query.lower() in categoryName.lower():
-				found_categories.append(categoryJson)
-		
-		for voiceName,voiceJson in zip(voices.title,voices.json):
-			if query.lower() in voiceName.lower():
-				found_voices.append(voiceJson)
-		
-		return search(vjson=vjson,cjson=cjson)
-		
+	
 	async def generate_ijt(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
 		if self.v:
 			print("getting job token")
@@ -131,12 +114,16 @@ class AsyncFakeYou():
 				
 					if wavo.status=="started":
 						continue
-					elif "pending" in wavo.status:
+					elif "pending" == wavo.status:
 						time.sleep(cooldown)
 						continue
-					elif "attempt_failed" in wavo.status:
-						raise TtsAttemptFailed("check token and text")
-					elif "complete_success":
+					elif "attempt_failed" == wavo.status:
+						raise Failed()
+					
+					elif "dead" == wavo.status:
+						raise Dead()
+					
+					elif "complete_success" == wavo.status:
 						async with self.session.get(wavo.link) as rcontent:
 							with open(filename,"wb") as wavfile:
 								content = await rcontent.read()

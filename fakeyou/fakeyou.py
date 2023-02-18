@@ -119,27 +119,7 @@ class FakeYou():
 		
 		return list_voice(json=found,size=0)
 	
-	def search(self,query:str):
-		#this function will search by filtering
-		
-		
-		cjson={"categories":[]}
-		vjson={"models":[]}
-		found_voices=vjson["models"]
-		found_categories=cjson["categories"]
-		voices=self.list_voices(size=0)
-		categories=self.list_voice_categories(size=0)
-		
-		for categoryName,categoryJson in zip(categories.name,categories.json):
-			if query.lower() in categoryName.lower():
-				found_categories.append(categoryJson)
-		
-		for voiceName,voiceJson in zip(voices.title,voices.json):
-			if query.lower() in voiceName.lower():
-				found_voices.append(voiceJson)
-		
-		return search(vjson=vjson,cjson=cjson)
-		
+	
 	def make_tts_job(self,text:str,ttsModelToken:str):
 		
 			

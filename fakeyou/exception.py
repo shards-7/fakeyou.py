@@ -10,7 +10,7 @@ class PathNullError(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__(*args, "FakeYou.com returned a null path", **kwargs)
 
-class PathNullError(Exception):
+class Dead(Exception):
     def __init__(*args, **kwargs):
         Exception.__init__(*args, "TTS job is dead, Server discarded it", **kwargs)
 

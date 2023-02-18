@@ -125,13 +125,8 @@ class wav():
 			with open(path,"wb") as f:
 				f.write(self.content)
 		else:
-			with open("fakeyou_{title}_{datetime.now().strftime('%Y/%M/%d %X')}.wav", "wb") as f:
-				f.write(self.content)
-class search():
-	
-	def __init__(self,vjson,cjson):
-		self.voices=list_voice(json=vjson,size=0)
-		self.categories=categories(json=cjson,size=0)
+			with open(f"fakeyou_{self.title}_{datetime.datetime.now().strftime('%Y-%M-%d %X')}.wav", "wb") as f:
+				f.write(bytes(self.content,"utf-8"))
 
 class login():
 	
