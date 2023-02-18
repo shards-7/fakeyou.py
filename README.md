@@ -2,7 +2,7 @@
 
 **FakeYou.py** is a python library to interact with [FakeYou.com](https://fakeyou.com/) API easily
 
-**Note** : Current Version is 1.1.5, which is a beta version for 2.0.0, anyhow, you may encounter some errors, please report to *__me__* or *__[ftk789](https://github.com/ftk789)__*
+**Note** : Current Version is 1.2.0, which is a beta version for 2.0.0, anyhow, you may encounter some errors, please report to *__me__* or *__[ftk789](https://github.com/ftk789)__*
 
 ##Contributors :
 + [Shards-7](https://github.com/shards-7)

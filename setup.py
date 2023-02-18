@@ -9,7 +9,7 @@ with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
 
 
 
-VERSION = '1.1.5'
+VERSION = '1.2.0'
 DESCRIPTION = 'Enhanced FAKEYOU.COM API lib'
 LONG_DESCRIPTION = 'None'
 
