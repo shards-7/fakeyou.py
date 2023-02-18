@@ -135,7 +135,7 @@ class wav():
 			with open(file_name,"wb") as f:
 				if type(self.content) == bytes:
 						f.write(self.content)
-					else:
+				else:
 						f.write(bytes(self.content,"utf-8"))
 			return file_name
 
