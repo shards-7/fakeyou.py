@@ -124,9 +124,11 @@ class wav():
 			
 			with open(path,"wb") as f:
 				f.write(self.content)
+				f.close()
 		else:
 			with open(f"fakeyou_{self.title}_{str(uuid4)}.wav", "wb") as f:
 				f.write(bytes(self.content,"utf-8"))
+				f.close()
 
 class login():
 	
