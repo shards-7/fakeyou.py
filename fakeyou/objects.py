@@ -120,16 +120,23 @@ class wav():
 			self.content=content
 	
 	def save(self,path=None):
-		if path==None:
+		if path!=None:
 			
 			with open(path,"wb") as f:
-				f.write(self.content)
+				if type(self.content) == bytes:
+					f.write(self.content)
+				else:
+					f.write(bytes(self.content,"utf-8"))
 				f.close()
+			return path
 		else:
 			file_name=f"fakeyou_{self.title}_{str(uuid4()).replace('-','_')}.wav"
-			with open(f"", "wb") as f:
-				f.write(bytes(self.content,"utf-8"))
-				f.close()
+			
+			with open(file_name,"wb") as f:
+				if type(self.content) == bytes:
+						f.write(self.content)
+					else:
+						f.write(bytes(self.content,"utf-8"))
 			return file_name
 
 class login():
