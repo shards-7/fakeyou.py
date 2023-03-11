@@ -62,7 +62,7 @@ class FakeYou():
 			raise TooManyRequests()
 			
 			
-	def list_voices(self,size:int=25):
+	def list_voices(self,size:int=0):
 		#this function will list every single voice that can be used
 		logging.debug("fetching voice models")
 		handler=self.session.get(self.baseurl+"tts/list")
