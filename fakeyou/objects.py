@@ -5,6 +5,14 @@ and no comments should be here
 
 its just objects
 """
+
+class user_ratings():
+    
+    def __init__(self,json):
+        self.positiveCount=json["positive_count"]
+        self.negativeCount=json["negative_count"]
+        self.totalCount=json["total_count"]
+
 class list_voice():
 	def __init__(self,json:dict,size):
 		voicels=json["models"]
@@ -21,6 +29,7 @@ class list_voice():
 		self.categoryTokens=[]
 		self.created=[]
 		self.lastUpdate=[]
+		self.user_ratings=[]
 		self.json=[]
 		if size!=0:
 			for i in range(size):
@@ -38,6 +47,8 @@ class list_voice():
 				self.created.append(voicels[i]["created_at"])
 				self.lastUpdate.append(voicels[i]["updated_at"])
 				self.json.append(voicels[i])
+				self.user_ratings.append(user_ratings(voicels[i]["user_ratings"]))
+			
 		else:
 			for voice in voicels:
 				self.modelTokens.append(voice["model_token"])
@@ -54,6 +65,8 @@ class list_voice():
 				self.created.append(voice["created_at"])
 				self.lastUpdate.append(voice["updated_at"])
 				self.json.append(voice)
+				self.user_ratings.append(user_ratings(voice["user_ratings"]))
+			
 		
 class categories():
 	def __init__(self,json,size):
@@ -120,13 +133,24 @@ class wav():
 			self.content=content
 	
 	def save(self,path=None):
-		if path==None:
+		if path!=None:
 			
 			with open(path,"wb") as f:
-				f.write(self.content)
+				if type(self.content) == bytes:
+					f.write(self.content)
+				else:
+					f.write(bytes(self.content,"utf-8"))
+				f.close()
+			return path
 		else:
-			with open(f"fakeyou_{self.title}_{str(uuid4)}.wav", "wb") as f:
-				f.write(bytes(self.content,"utf-8"))
+			file_name=f"fakeyou_{self.title}_{str(uuid4()).replace('-','_')}.wav"
+			
+			with open(file_name,"wb") as f:
+				if type(self.content) == bytes:
+						f.write(self.content)
+				else:
+						f.write(bytes(self.content,"utf-8"))
+			return file_name
 
 class login():
 	
