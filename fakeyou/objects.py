@@ -31,6 +31,9 @@ class list_voice():
 		self.lastUpdate=[]
 		self.user_ratings=[]
 		self.json=[]
+		if ( size == -1 ):
+			# Dirty fix to allow returning of all categories
+			size = len( categoriesls ) 
 		if size!=0:
 			for i in range(size):
 				self.modelTokens.append(voicels[i]["model_token"])
