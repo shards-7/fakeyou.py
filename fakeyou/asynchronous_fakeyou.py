@@ -1,4 +1,4 @@
-import aiohttp,json,time,asyncio,re
+import aiohttp,json,asyncio,re
 from uuid import uuid4
 from .objects import *
 from .exception import *
@@ -88,7 +88,7 @@ class AsyncFakeYou():
 		return list_voice(json=found,size=0)
 	
 	
-	async def make_tts_job(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
+	async def make_tts_job(self,text:str,ttsModelToken:str):
 		if self.v:
 			print("getting job token")
 		payload={"uuid_idempotency_token":str(uuid4()),"tts_model_token":ttsModelToken,"inference_text":text}
@@ -115,6 +115,7 @@ class AsyncFakeYou():
 					if wavo.status=="started":
 						continue
 					elif "pending" == wavo.status:
+						await asyncio.sleep(2)
 						continue
 					elif "attempt_failed" == wavo.status:
 						raise Failed()
@@ -125,6 +126,7 @@ class AsyncFakeYou():
 					elif "complete_success" == wavo.status:
 						if wavo.link != None:
 							async with self.session.get(wavo.link) as rcontent:
+								print(wav(hjson,rcontent))
 								del wavo
 								#for RAM
 								
@@ -134,8 +136,8 @@ class AsyncFakeYou():
 				elif handler.status==429:
 					raise TooManyRequests("Too many requests, try again later")
 	
-	async def say(self,text:str,ttsModelToken:str,filename:str="fakeyou.wav"):
-		ijt=await self.make_tts_job(text=text,ttsModelToken=ttsModelToken,filename=filename)
+	async def say(self,text:str,ttsModelToken:str):
+		ijt=await self.make_tts_job(text=text,ttsModelToken=ttsModelToken)
 		return await self.tts_poll(ijt)
 	
 	async def get_tts_leaderboard(self):
@@ -258,6 +260,7 @@ class AsyncFakeYou():
 				if state == "Started":
 					continue
 				if state == "pending":
+					await asyncio.sleep(2)
 					continue
 	
 	async def w2l(self,file:open,template_token:str) :
@@ -295,5 +298,4 @@ class AsyncFakeYou():
 	def logout(self):
 		
 		self.session.cookie_jar.clear()
-	
 	
