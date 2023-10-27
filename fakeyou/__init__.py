@@ -2,7 +2,7 @@ __title__ = "fakeyou.py"
 __author__ = "Shards-7"
 __license__ = "GNU"
 __copyright__ = "Copyright 2023 Shards"
-__version__ = "1.2.5"
+__version__ = "1.2.6"
 
 from .fakeyou import FakeYou
 from .asynchronous_fakeyou import AsyncFakeYou

@@ -51,7 +51,7 @@ class FakeYou():
 				sjson=self.session.get(self.baseurl+"session").json()
 				return login(sjson=sjson)
 				
-			elif lrjson["success"]==False and lrjson["error_type"]=="InvalidCredentials":
+		elif loginHandler.status_code == 401:
 				#login failed
 				logging.critical("FALSE email/password, raising error.")
 				raise InvalidCredentials()
